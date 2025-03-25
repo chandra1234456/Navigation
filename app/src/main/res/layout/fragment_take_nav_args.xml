@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".navargs.TakeNavArgsFragment">
+
+    <!-- EditText 1 -->
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- EditText 2 -->
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age (Years)"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- EditText 3 -->
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Education"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button -->
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_gravity="center"
+        android:padding="12dp"/>
+</LinearLayout>

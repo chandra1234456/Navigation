@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_1"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:shortcutShortLabel="@string/shortcutShortLabel"
+        android:shortcutLongLabel="@string/shortcutLongLabel"
+        android:shortcutDisabledMessage="@string/shortcutDisabledMessage">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.chandra.practice.navigation"
+            android:targetClass="com.chandra.practice.navigation.MainActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="shortcut_2"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:shortcutShortLabel="@string/shortcutShortLabel_2"
+        android:shortcutLongLabel="@string/shortcutLongLabel_2"
+        android:shortcutDisabledMessage="@string/shortcutDisabledMessage_2">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.chandra.practice.navigation"
+            android:targetClass="com.chandra.practice.navigation.MainActivity" />
+    </shortcut>
+</shortcuts>

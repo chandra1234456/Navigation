@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.chandra.practice.navigation.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_takeNavArgsFragment"
+            app:destination="@id/takeNavArgsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.chandra.practice.navigation.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.chandra.practice.navigation.fragments.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.chandra.practice.navigation.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.chandra.practice.navigation.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeNavArgsFragment"
+        android:name="com.chandra.practice.navigation.navargs.TakeNavArgsFragment"
+        android:label="fragment_take_nav_args"
+        tools:layout="@layout/fragment_take_nav_args" >
+
+        <action
+            android:id="@+id/action_takeNavArgsFragment_to_displayNavArgsFragment"
+            app:destination="@id/displayNavArgsFragment">
+        <argument
+            android:name="userInfo"
+            app:argType="com.chandra.practice.navigation.navargs.UserInfo"/>
+
+        </action>
+          </fragment>
+    <fragment
+        android:id="@+id/displayNavArgsFragment"
+        android:name="com.chandra.practice.navigation.navargs.DisplayNavArgsFragment"
+        android:label="fragment_display_nav_args"
+        tools:layout="@layout/fragment_display_nav_args" >
+    <argument
+        android:name="userInfo"
+        app:argType="com.chandra.practice.navigation.navargs.UserInfo"/>
+    </fragment>
+</navigation>

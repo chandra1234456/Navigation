@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".fragments.FavoriteFragment">
+
+    <ImageView
+        android:id="@+id/bottomSheetIcon"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/playstore_icon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bottomSheetTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Debugging Mode Detected"
+        android:textSize="21sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bottomSheetContextMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="We noticed that you have enabled USB Debugging Mode on your device which can interfere with the normal app operations. Its recommended to disable this mode to ensure smooth functioning of the app"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bottomSheetNegative"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cancel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bottomSheetPositive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Disable Now" />
+    </LinearLayout>
+
+
+</LinearLayout>
