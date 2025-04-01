@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,6 @@ import com.chandra.practice.navigation.databinding.ActivityMainBinding
 import com.chandra.practice.navigation.fragments.FavoriteFragment
 import com.chandra.practice.navigation.fragments.ProfileFragment
 import com.chandra.practice.navigation.util.logUtil.LogType
-import com.chandra.practice.navigation.util.logUtil.LogUtil
 import com.chandra.practice.navigation.util.logUtil.LogUtil.log
 import com.chandra.practice.navigation.util.networkUtil.ConnectivityReceiver
 import com.chandra.practice.navigation.util.toastMessage
@@ -40,7 +38,9 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     private lateinit var actionBarDrawerToggle : ActionBarDrawerToggle
     private var mSnackBar : Snackbar? = null
     // Define the connectivity receiver instance
-    private val connectivityReceiver = ConnectivityReceiver()
+    private var connectivityReceiver = ConnectivityReceiver()
+    private var isReceiverRegistered = false  // Track receiver registration status
+
     private var backPressedOnce = false
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,18 +55,14 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         testLogUtil()
         //Navigation Drawer
         val navigationView : NavigationView = findViewById(R.id.navigationView)
-        // Access the header view
-        val headerView =
-            navigationView.getHeaderView(0)  // 0 is the index of the header (it's always 0 for a single header)
-        val userName : TextView = headerView.findViewById(R.id.user_name)
-        val userEmail : TextView = headerView.findViewById(R.id.user_email)
-        val appVersion : TextView = headerView.findViewById(R.id.versionText)
         navigationView.setNavigationItemSelectedListener(this)
         // Update the views
-        userName.text = "New User Name"
-        userEmail.text = "newuser@example.com"
-        appVersion.text =
-            "App Version :${this.packageManager.getPackageInfo(this.packageName , 0).versionName}"
+        mainBinding.homeDrawerView.apply {
+            headerLayout.userName.text = "New User Name"
+            headerLayout.userEmail.text = "newuser@example.com"
+            versionText.text =
+                "App Version :${this@MainActivity.packageManager.getPackageInfo(this@MainActivity.packageName , 0).versionName}"
+        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.naveHostContainer) as NavHostFragment
@@ -313,53 +309,59 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         }
     }
 
-
-
-    override fun onStart() {
-        super.onStart()
-        try {
-            // Register the receiver for connectivity changes
-            if (connectivityReceiver == null) {
-                val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-                registerReceiver(connectivityReceiver, intentFilter)
+        override fun onStart() {
+            super.onStart()
+            try {
+                // Register the receiver for connectivity changes if not already registered
+                if (connectivityReceiver == null) {
+                    connectivityReceiver = ConnectivityReceiver()  // Make sure receiver is instantiated
+                }
+                if (!isReceiverRegistered) {
+                    val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+                    registerReceiver(connectivityReceiver, intentFilter)
+                    isReceiverRegistered = true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-    }
 
-    override fun onStop() {
-        super.onStop()
-        try {
-            // Unregister the receiver when the activity is stopped
-            unregisterReceiver(connectivityReceiver)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // Unregister the receiver to prevent memory leaks (optional: can also be done in onStop)
-        try {
-            unregisterReceiver(connectivityReceiver)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        try {
-            // Register the receiver for network changes (if it wasn't already registered)
-            if (connectivityReceiver == null) {
-                val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-                registerReceiver(connectivityReceiver, intentFilter)
+        override fun onStop() {
+            super.onStop()
+            try {
+                // Unregister the receiver only if it was registered
+                if (isReceiverRegistered) {
+                    unregisterReceiver(connectivityReceiver)
+                    isReceiverRegistered = false
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-    }
+
+        override fun onPause() {
+            super.onPause()
+            // Optionally, unregister the receiver here if needed, or in onStop()
+            // Not both to avoid issues
+        }
+
+        override fun onResume() {
+            super.onResume()
+            try {
+                // Register the receiver for network changes if not already registered
+                if (connectivityReceiver == null) {
+                    connectivityReceiver = ConnectivityReceiver()  // Make sure receiver is instantiated
+                }
+                if (!isReceiverRegistered) {
+                    val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+                    registerReceiver(connectivityReceiver, intentFilter)
+                    isReceiverRegistered = true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
 
 
 

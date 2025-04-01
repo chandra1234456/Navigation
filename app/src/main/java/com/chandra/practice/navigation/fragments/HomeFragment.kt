@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.chandra.practice.navigation.MainActivity
 import com.chandra.practice.navigation.R
 import com.chandra.practice.navigation.databinding.FragmentHomeBinding
+import com.chandra.practice.toast.ToastNew
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
@@ -44,6 +45,8 @@ class HomeFragment : Fragment() {
             requireContext().getSharedPreferences("LoginValues" , Context.MODE_PRIVATE)
 
         homeBinding.extendedFloatingActionButton.setOnClickListener {
+            ToastNew(requireContext()).successToast(requireContext(),"ONE")
+
             findNavController().navigate(R.id.takeNavArgsFragment)
         }
         val data = retrieveLoginValues("NEW")

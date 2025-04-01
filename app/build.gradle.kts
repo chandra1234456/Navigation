@@ -63,4 +63,5 @@ dependencies {
         implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     }
+    implementation("com.github.chandra1234456:ToastLibrary:1.0.5")
 }
